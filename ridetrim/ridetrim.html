@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Google Maps - pygmaps</title>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+
+<script type="text/javascript" src="ridetrim.js"></script>
+</head>
+<body style="margin:0px; padding:0px;">
+	<div id="controls">
+        <table>
+            <tr>
+              <td>
+                <h2>Input GPX</h2>
+                <textarea rows="20" cols="40" id="gpx_in"></textarea>
+                <br>
+                <input type="submit" value="Load!" id="makethinggo">
+              </td>
+              <td>
+                <h2>Output GPX</h2>
+                <textarea rows="20" cols="40" id="gpx_out"></textarea>
+                <br>
+                <input type="submit" value="Trim!" id="makecutgo">
+              </td>
+            </tr>
+        </table>
+	</div>
+
+	<div id="slider-range"></div>
+	<div id="map_canvas" style="height:400px; width:100%"></div>
+
+</body>
+</html>
