@@ -108,7 +108,13 @@ map = pygmaps.maps(0.0, 0.0, 12)
 center = (0.0, 0.0)
 
 for info in rideinfo:
-    path = info['latlng'][opts.downsample::opts.downsample]
+
+    import curve_simplify
+
+    if True:
+        path = curve_simplify.reduce_curve(info['latlng'], 1e-3)
+    else:
+        path = info['latlng'][opts.downsample::opts.downsample]
 
     if [0.0, 0.0] in path:
         print info['name']
