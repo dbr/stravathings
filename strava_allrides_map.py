@@ -53,6 +53,7 @@ import optparse
 opter = optparse.OptionParser()
 opter.add_option("-a", "--athlete", dest="athlete", type="int")
 opter.add_option("-d", "--downsample", dest="downsample", type="int", default="50")
+opter.add_option("-o", "--out", dest="out", default="mymap.html")
 opts, args = opter.parse_args()
 
 if opts.athlete is None:
@@ -132,4 +133,4 @@ for info in rideinfo:
 
 
 map.center = center
-map.draw("mymap.html", extrahtml = overlay_js)
+map.draw(opts.out, extrahtml = overlay_js)
