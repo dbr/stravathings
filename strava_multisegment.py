@@ -26,4 +26,4 @@ for _sid_sname, times in sorted(efforts_times_by_segment_id.items(), key = lambd
         continue
 
     print "%s (%s times)" % (sname, len(times))
-    print "    %s" % ", ".join([convert_seconds(x) for x in times])
+    print "    %s" % ", ".join(reversed([convert_seconds(x) for x in times]))
