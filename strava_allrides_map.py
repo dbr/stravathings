@@ -52,8 +52,11 @@ for(var i in allcords)
 import optparse
 opter = optparse.OptionParser()
 opter.add_option("-a", "--athlete", dest="athlete", type="int")
-opter.add_option("-d", "--downsample", dest="downsample", type="int", default="50")
+opter.add_option("-d", "--downsample", dest="downsample", type="int", default=50)
 opter.add_option("-o", "--out", dest="out", default="mymap.html")
+opter.add_option("-l", "--limit", dest="pagelimit", default=4,
+help = "Each page contains 50 rides. -l 4 will download at most 200 rides (starting with the most recent)")
+
 opts, args = opter.parse_args()
 
 if opts.athlete is None:
@@ -93,7 +96,7 @@ def get_ride_info(offset=0):
 
 
 rideinfo = []
-for offset in range(10):
+for offset in range(opts.pagelimit):
     offset = offset * 50
     newrides = get_ride_info(offset)
     rideinfo.extend(newrides)
