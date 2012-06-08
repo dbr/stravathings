@@ -66,8 +66,9 @@ for stage_num, stage_dist in sorted(stage.items()):
     if remaining < 0*_miles:
         print "Complete"
     else:
-        print "%s remaining of stage %s" % (
+        print "%s (%s) remaining of stage %s" % (
             remaining,
+            remaining.asUnit(_km),
             stage_num,
             )
 
