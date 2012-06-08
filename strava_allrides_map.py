@@ -113,7 +113,11 @@ for info in rideinfo:
     import curve_simplify
 
     if True:
-        path = curve_simplify.reduce_curve(info['latlng'], 1e-3)
+        # FIXME: This is still pretty slow (can take up to 400ms)
+        import time
+        start = time.time()
+        path = curve_simplify.ramerdouglas(info['latlng'], 1e-3)
+        print time.time() - start
     else:
         path = info['latlng'][opts.downsample::opts.downsample]
 
