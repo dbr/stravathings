@@ -1,6 +1,6 @@
 import time
 import json
-import httplib2
+import urllib
 
 try:
     import redis
@@ -37,16 +37,15 @@ def geturl(url, cache = True):
                 print "Caching miss for %r" % key
     else:
         import warning
-        warning.warn("redis not found, only httplib2 caching will be used")
-
-    http = httplib2.Http(".cache")
+        warning.warn("redis not found, no caching will be used")
 
     start = time.time()
-    resp, content = http.request(url)
+    req = urllib.urlopen(url)
     end = time.time()
-    print "%.02f seconds" % (end-start)
+    content = req.read()
+    print "Request took %.02f seconds" % (end-start)
 
-    if int(resp['status']) >= 400:
+    if req.getcode() >= 400:
         raise StravaError("%r responded with status was %s" % (url, resp['status']))
 
     if have_redis and cache:
