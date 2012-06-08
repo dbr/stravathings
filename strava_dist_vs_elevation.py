@@ -28,4 +28,4 @@ for r in allrides['rides']:
 
 for r in reversed(sorted(by_ratio)):
     thing, dist, ele, name = r
-    print "%.01f km dist, %.02f up, %s (%s)" % (dist/1000, ele, name, thing)
+    print "%.01f km dist, %.02f up, %s" % (dist/1000, ele, name)
