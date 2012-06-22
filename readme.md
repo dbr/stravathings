@@ -52,15 +52,22 @@ routes cycled overlaid on a single map.
 
 By default this grabs the last 4 pages of rides (which means 200 rides). You can change this limit with `-l 10` which will download 500 etc.
 
-## strava_by_avgspeed.py
+## strava_sortomatic.py
 
-Prints your last 50 rides, ordered by average speed.
+Prints your last 50 rides, ordered by a specific attribute like averageSpeed
 
-    $ python strava_by_avgspeed.py | tail -4
-          Glenelg, Henley, Torrens: 24.96 km/h
-      Edge 500 for my birthday \o/: 25.41 km/h
-    "I wonder how quickly I can ge: 27.24 km/h
-                      To "The Bay": 28.64 km/h
+    $ python strava_sortomatic.py averageWatts | tail -11
+    # Crafers
+    18.36 km (0.77 hours moving)
+    24.00 km/h avg (57.08 km/h max)
+    503.27m climbed
+    199w average power
+
+    # Last cycle before back to Scotland for a while
+    62.74 km (2.76 hours moving)
+    22.73 km/h avg (50.66 km/h max)
+    305.00m climbed
+    227w average power
 
 ## strava_multisegment.py
 
