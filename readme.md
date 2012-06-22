@@ -100,7 +100,7 @@ with not much climbing was 4th.
 ## Strava challenge-specific scripts
 
 There's a couple of scripts to track my progress on a few of
-[Strava's challenges]http://app.strava.com/challenges), which are
+[Strava's challenges](http://app.strava.com/challenges), which are
 pretty useless now, but could be modified for future things
 
 ## Misc'ery
