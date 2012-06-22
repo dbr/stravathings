@@ -13,7 +13,7 @@ def randomcolour(h = None, s = None, v = None):
     if h is None:
         h = random.uniform(0.0, 1.0)
     if s is None:
-        s = random.uniform(0.5, 1.0)
+        s = random.uniform(0.9, 1.0)
     if v is None:
         v = random.uniform(0.8, 1.0)
 
@@ -24,10 +24,10 @@ def randomcolour(h = None, s = None, v = None):
 
 overlay_js = """
 var allcords = [
-    [new google.maps.LatLng(-85, 0.0),        new google.maps.LatLng(85, 0.0),        new google.maps.LatLng(85, 90),  new google.maps.LatLng(-85, 90)],
-    [new google.maps.LatLng(-85, 90),         new google.maps.LatLng(85, 90),         new google.maps.LatLng(85, 180), new google.maps.LatLng(-85, 180)],
-    [new google.maps.LatLng(-85, 180.000001), new google.maps.LatLng(85, 180.000001), new google.maps.LatLng(85, 270), new google.maps.LatLng(-85, 270)],
-    [new google.maps.LatLng(-85, 270),        new google.maps.LatLng(85, 270),        new google.maps.LatLng(85, 360), new google.maps.LatLng(-85, 360)],
+    [new google.maps.LatLng(-85, 0.0), new google.maps.LatLng(85, 0.0), new google.maps.LatLng(85, 90),  new google.maps.LatLng(-85, 90)],
+    [new google.maps.LatLng(-85, 90),  new google.maps.LatLng(85, 90),  new google.maps.LatLng(85, 180), new google.maps.LatLng(-85, 180)],
+    [new google.maps.LatLng(-85, 180), new google.maps.LatLng(85, 180), new google.maps.LatLng(85, 270), new google.maps.LatLng(-85, 270)],
+    [new google.maps.LatLng(-85, 270), new google.maps.LatLng(85, 270), new google.maps.LatLng(85, 360), new google.maps.LatLng(-85, 360)],
 ];
 
 for(var i in allcords)
