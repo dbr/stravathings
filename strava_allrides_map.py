@@ -119,7 +119,17 @@ for info in rideinfo:
         # FIXME: This is still pretty slow (can take up to 400ms)
         import time
         start = time.time()
-        path = curve_simplify.ramerdouglas(info['latlng'], 1e-3)
+
+        # Handle threshold in more sane manner than in lat/long degrees
+        # TODO: I'd be surprised if this calculation is correct, but seems to work..
+        accuracy_m = 10.0 # TODO: Make this an argument
+
+        earth_circum_m = 40075 * 1000
+        metre_per_deg = earth_circum_m / 360.0
+        threshold = accuracy_m / metre_per_deg
+
+        path = curve_simplify.ramerdouglas(info['latlng'], threshold)
+        print "%.02f%% polyline simplification (from %d points to %d)" % (100-float(len(path))/len(info['latlng']) * 100, len(info['latlng']), len(path))
         print time.time() - start
     else:
         path = info['latlng'][opts.downsample::opts.downsample]
