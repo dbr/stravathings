@@ -13,7 +13,7 @@ silly unit-conversion related errors
   be removed quite easily.
 
 There is a `requirements.txt` file containing the specific versions
-(so you can `pip install requirements.txt`)
+(so you can `pip install -r requirements.txt`)
 
 ## Athlete ID
 
