@@ -19,7 +19,10 @@ There is a `requirements.txt` file containing the specific versions
 
 Most scripts default to [my Strava athlete-id](http://app.strava.com/athletes/316985)
 
-You probably want to modify the `myid` function in `common.py` to your ID (found by going to your profile page, and looking at the number in the URL, e.g given `http://app.strava.com/athletes/316985` the ID is `316985`
+You probably want to modify the `myid` function in `common.py` to your
+ID (found by going to your profile page, and looking at the number in
+the URL, e.g given `http://app.strava.com/athletes/316985` the ID is
+`316985`
 
 Most scripts should take an argument to change this (usually `-a 1234`),
 although changing the `myid` function saves from always having to type this
@@ -50,7 +53,9 @@ routes cycled overlaid on a single map.
 
     $ python strava_allrides_map.py
 
-By default this grabs the last 4 pages of rides (which means 200 rides). You can change this limit with `-l 10` which will download 500 etc.
+By default this grabs the last 4 pages of rides (which means 200
+rides). You can change this limit with `-l 10` which will download 500
+etc.
 
 ## strava_sortomatic.py
 
