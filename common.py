@@ -1,3 +1,4 @@
+import sys
 import time
 import json
 import urllib
@@ -34,7 +35,7 @@ def geturl(url, cache = True):
             if cv is not None:
                 return json.loads(cv)
             else:
-                print "Caching miss for %r" % key
+                print >>sys.stderr, "Caching miss for %r" % key
     else:
         import warning
         warning.warn("redis not found, no caching will be used")
@@ -43,7 +44,7 @@ def geturl(url, cache = True):
     req = urllib.urlopen(url)
     end = time.time()
     content = req.read()
-    print "Request took %.02f seconds" % (end-start)
+    print >>sys.stderr, "Request took %.02f seconds" % (end-start)
 
     if req.getcode() >= 400:
         raise StravaError("%r responded with status was %s" % (url, resp['status']))
