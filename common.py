@@ -47,7 +47,7 @@ def geturl(url, cache = True):
     print >>sys.stderr, "Request took %.02f seconds" % (end-start)
 
     if req.getcode() >= 400:
-        raise StravaError("%r responded with status was %s" % (url, resp['status']))
+        raise StravaError("%r responded with status was %s" % (url, req.getcode()))
 
     if have_redis and cache:
         r.set(key, content)
