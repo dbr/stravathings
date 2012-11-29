@@ -56,8 +56,8 @@ class maps:
         if extrahtml is not None: #dbr: Added
             f.write(extrahtml)
 
-        f.write("\tmap.fitBounds(bounds);")
-        f.write('\t}\n')
+        f.write("map.fitBounds(bounds);")
+        f.write('}\n')
         f.write('</script>\n')
         f.write('</head>\n')
         f.write('<body style="margin:0px; padding:0px;" onload="initialize()">\n')
@@ -150,7 +150,7 @@ class maps:
             clickable = False, \
             geodesic = True,\
             strokeColor = "#FF0000",\
-            strokeOpacity = 0.5, #dbr: Changed default from 1.0
+            strokeOpacity = 0.8, #dbr: Changed default from 1.0
             strokeWeight = 2
             ):
         f.write('var PolylineCoordinates = [\n')
