@@ -84,6 +84,10 @@ def get_ride_info(offset=0):
             print "Error: %s" % e
             continue
 
+        if 'latlng' not in info:
+            print "Skipping trainer ride %s" % r['name']
+            continue
+
         latlng = [x for x in info['latlng'] if x != [0.0, 0.0]]
 
         rideinfo.append(
