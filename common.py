@@ -37,8 +37,8 @@ def geturl(url, cache = True):
             else:
                 print >>sys.stderr, "Caching miss for %r" % key
     else:
-        import warning
-        warning.warn("redis not found, no caching will be used")
+        import warnings
+        warnings.warn("redis not found, no caching will be used")
 
     start = time.time()
     req = urllib.urlopen(url)
