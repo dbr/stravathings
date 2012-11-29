@@ -17,8 +17,8 @@ def convert_seconds(seconds):
     return '%02i:%02i' % (minutes, seconds)
 
 
-def _get_ride_infos(offset = 0):
-    allrides = geturl("http://www.strava.com/api/v1/rides?athleteId=%s&offset=%d" % (myid(), offset), cache=False)
+def _get_ride_infos(aid, offset = 0):
+    allrides = geturl("http://www.strava.com/api/v1/rides?athleteId=%s&offset=%d" % (aid, offset), cache=False)
 
 
     rides = []
@@ -49,27 +49,40 @@ def _get_ride_infos(offset = 0):
 
         if 'heartrate' in stream:
             sortables['heartrateMin'] = min(stream['heartrate'])
+            sortables['heartrateAvg'] = sum(stream['heartrate']) / float(len(stream['heartrate']))
             sortables['heartrateMax'] = max(stream['heartrate'])
         else:
             sortables['heartrateMin'] = -1
+            sortables['heartrateAvg'] = -1
             sortables['heartrateMax'] = -1
 
         if 'temp' in stream:
-            sortables['temperatureMin'] = min(stream['temp'])
-            sortables['temperatureMax'] = max(stream['temp'])
-            sortables['temperatureAvg'] = float(sum(stream['temp']))/len(stream['temp'])
+            temp = [x for x in stream['temp'] if x is not None]
+            sortables['temperatureMin'] = min(temp)
+            sortables['temperatureMax'] = max(temp)
+            
+            sortables['temperatureAvg'] = sum(temp) / float(len(temp))
+
         else:
             sortables['temperatureMin'] = -1
             sortables['temperatureMax'] = -1
             sortables['temperatureAvg'] = -1
+
+        if 'cadence' in stream:
+            sortables['cadenceAvg'] = sum(stream['cadence']) / float(len(stream['cadence']))
+            nonzero = [x for x in stream['cadence'] if x > 0]
+            sortables['cadenceAvgNonZero'] = sum(nonzero) / float(len(nonzero))
+        else:
+            sortables['cadenceAvg'] = -1
+            sortables['cadenceAvgNonZero'] = -1
             
     return rides
 
 
-def get_ride_infos():
+def get_ride_infos(aid):
     found = []
     for x in range(10):
-        curpage = _get_ride_infos(offset = x*50)
+        curpage = _get_ride_infos(offset = x*50, aid = aid)
         if len(curpage) < 50:
             return found + curpage
         else:
@@ -80,7 +93,7 @@ def get_ride_infos():
 
 
 def show_ride(info):
-    return "# %s (%s)\n%.02f km (%.02f hours moving)\n%.02f km/h avg (%.02f km/h max)\n%.02fm climbed\n%.00fw average power\n%dbpm (HR min)\n%dbpm (HR max)\n%d*c min (%d*c avg) %d*c max" % (
+    return "# %s (%s)\n%.02f km (%.02f hours moving)\n%.02f km/h avg (%.02f km/h max)\n%.02fm climbed\n%.00fw average power\n%dbpm (HR min)\n%dbpm (HR avg)\n%dbpm (HR max)\n%d*c min (%d*c avg) %d*c max\n%s cadence avg (%d non-zero avg)" % (
         info['name'],
         info['startDate'],
         info['distance'].asUnit(_km).asNumber(),
@@ -90,19 +103,22 @@ def show_ride(info):
         info['elevationGain'].asNumber(),
         info['averageWatts'].asNumber(),
         info['heartrateMin'],
+        info['heartrateAvg'],
         info['heartrateMax'],
         info['temperatureMin'],
         info['temperatureAvg'],
         info['temperatureMax'],
+        info['cadenceAvg'],
+        info['cadenceAvgNonZero'],
         )
 
 
 def show_csv_heading():
-    return "startDate, name, distance, movingTime, averageSpeed, maximumSpeed, elevationGain, averageWatts, heartrateMin, heartrateMax, temperatureMin, temperatureAvg, temperatureMax"
+    return "startDate, name, distance, movingTime, averageSpeed, maximumSpeed, elevationGain, averageWatts, heartrateMin, heartrateAvg, heartrateMax, temperatureMin, temperatureAvg, temperatureMax, cadenceAvg, cadenceAvgNonZero"
 
 
 def show_csv(info):
-    return "%s, %s,%.02f, %.02f, %.02f, %.02f, %.02f, %.00f, %d, %d, %d, %d, %d" % (
+    return "%s, %s,%.02f, %.02f, %.02f, %.02f, %.02f, %.00f, %d, %d, %d, %d, %d, %d, %d, %d" % (
         time.mktime(info['startDate'].timetuple()),
         info['name'].replace(",", ""),
         info['distance'].asUnit(_km).asNumber(),
@@ -112,25 +128,36 @@ def show_csv(info):
         info['elevationGain'].asNumber(),
         info['averageWatts'].asNumber(),
         info['heartrateMin'],
+        info['heartrateAvg'],
         info['heartrateMax'],
         info['temperatureMin'],
         info['temperatureAvg'],
         info['temperatureMax'],
+        info['cadenceAvg'],
+        info['cadenceAvgNonZero'],
         )
 
 
 def main():
     opter = optparse.OptionParser()
     opter.add_option("--csv", action="store_true", default = False)
+    opter.add_option("-a", "--athlete", dest="athlete", type="int")
+
     opts, args = opter.parse_args()
 
-    if len(args) != 1:
-        options = ['name', 'averageSpeed', 'maximumSpeed', 'distance', 'movingTime', 'averageWatts', 'elevationGain']
+    if opts.athlete is None:
+        aid = myid()
+    else:
+        aid = opts.athlete
 
-        opter.error("First argument must be one of %s" % (
-                ", ".join(options)))
+    if len(args) == 0:
+        sort_key = 'startDate'
+    elif len(args) > 1:
+        opter.error("Sort argument must be ...") # FIXME: populate this
+    else:
+        sort_key = args[0]
 
-    rides = get_ride_infos()
+    rides = get_ride_infos(aid = aid)
 
 
     if opts.csv:
@@ -144,7 +171,7 @@ def main():
         print "\n".join(out)
 
     else:
-        s = sorted(rides, key = lambda k: k[args[0]])
+        s = sorted(rides, key = lambda k: k[sort_key])
         print "\n\n".join(show_ride(r) for r in s)
 
 
