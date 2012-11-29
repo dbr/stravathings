@@ -20,7 +20,8 @@ for r in allrides['rides']:
     ele = ride['elevationGain']
     dist = ride['distance']
 
-    thing = (ele**2*dist)
+    #thing = (ele**2*dist)
+    thing = (ele/dist)*100
     if thing == 0:
         print 'flat/downhill', ride['name']
     else:
@@ -28,4 +29,4 @@ for r in allrides['rides']:
 
 for r in reversed(sorted(by_ratio)):
     thing, dist, ele, name = r
-    print "%.01f km dist, %.02f up, %s" % (dist/1000, ele, name)
+    print "%.01f km dist, %.02f up, %s (%.04f%% grade)" % (dist/1000, ele, name, thing)
