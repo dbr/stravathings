@@ -46,6 +46,8 @@ class maps:
 
         #dbr: Added
         f.write("var bounds = new google.maps.LatLngBounds();");
+        f.write("""var styles = [{"stylers": [{"saturation": -80 },{"lightness": -65 }]}];""")
+
 
         self.drawmap(f)
         self.drawgrids(f)
@@ -127,7 +129,8 @@ class maps:
         f.write('\t\tvar myOptions = {\n')
         f.write('\t\t\tzoom: %d,\n' % (self.zoom))
         f.write('\t\t\tcenter: centerlatlng,\n')
-        f.write('\t\t\tmapTypeId: google.maps.MapTypeId.ROADMAP\n')
+        f.write('\t\t\tmapTypeId: google.maps.MapTypeId.ROADMAP,\n')
+        f.write('\t\t\tstyles: styles\n')
         f.write('\t\t};\n')
         f.write('\t\tvar map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);\n')
         f.write('\n')

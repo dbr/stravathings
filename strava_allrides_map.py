@@ -22,32 +22,6 @@ def randomcolour(h = None, s = None, v = None):
     return tuple(int(x*255) for x in rgb)
 
 
-overlay_js = """
-var allcords = [
-    [new google.maps.LatLng(-85, 0.0), new google.maps.LatLng(85, 0.0), new google.maps.LatLng(85, 90),  new google.maps.LatLng(-85, 90)],
-    [new google.maps.LatLng(-85, 90),  new google.maps.LatLng(85, 90),  new google.maps.LatLng(85, 180), new google.maps.LatLng(-85, 180)],
-    [new google.maps.LatLng(-85, 180), new google.maps.LatLng(85, 180), new google.maps.LatLng(85, 270), new google.maps.LatLng(-85, 270)],
-    [new google.maps.LatLng(-85, 270), new google.maps.LatLng(85, 270), new google.maps.LatLng(85, 360), new google.maps.LatLng(-85, 360)],
-];
-
-for(var i in allcords)
-{
-      bgpoly = new google.maps.Polygon({
-        paths: allcords[i],
-        strokeColor: "#FFF",
-        strokeOpacity: 0.9,
-        strokeWeight: 1.0,
-        fillColor: "#000",
-        fillOpacity: 0.6,
-        zIndex: -999999
-      });
-      bgpoly.setMap(map)
-}
-
-
-
-"""
-
 
 import optparse
 opter = optparse.OptionParser()
@@ -154,4 +128,4 @@ for info in rideinfo:
 
 
 map.center = center
-map.draw(opts.out, extrahtml = overlay_js)
+map.draw(opts.out)
