@@ -28,7 +28,7 @@ opter = optparse.OptionParser()
 opter.add_option("-a", "--athlete", dest="athlete", type="int")
 opter.add_option("-d", "--downsample", dest="downsample", type="int", default=50)
 opter.add_option("-o", "--out", dest="out", default="mymap.html")
-opter.add_option("-l", "--limit", dest="pagelimit", default=4,
+opter.add_option("-l", "--limit", dest="pagelimit", default=10,
 help = "Each page contains 50 rides. -l 4 will download at most 200 rides (starting with the most recent)")
 
 opts, args = opter.parse_args()
