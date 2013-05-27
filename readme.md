@@ -161,3 +161,15 @@ heart-rate, power and cadence.
 
 Ideally this functionality would be incorporated into Strava's crop
 tool someday.
+
+
+### `strava_challenge_lister.py`
+
+Attempts to list all challenges that ever existed on Strava, something like this:
+
+    INFO:__main__:Found challenge 1, http://app.strava.com/challenges/1 (Rapha Festive 500)
+    INFO:__main__:Found challenge 2, http://app.strava.com/challenges/2 (Strava Ride Base Mile Blast)
+    INFO:__main__:Found challenge 3, http://app.strava.com/challenges/3 (Strava Run Base Mile Blast)
+    DEBUG:__main__:Challenge 4 does not exist
+    INFO:__main__:Found challenge 5, http://app.strava.com/challenges/5 (A Classic Challenge from Specialized)
+    DEBUG:__main__:Challenge 6 does not exist
